@@ -1,6 +1,28 @@
-import React from "react";
-export default () => {
+import React, { useEffect, useRef } from "react";
+import Typed from "typed.js";
 
+const TypedText = ({ text }) => {
+    const el = useRef(null);
+
+    useEffect(() => {
+        const typed = new Typed(el.current, {
+            strings: [text],
+            typeSpeed: 25,
+            backSpeed: 25,
+            loop: false,
+            showCursor: true,
+            cursorChar: '|',
+        });
+
+        return () => {
+            typed.destroy();
+        };
+    }, [text]);
+
+    return <span ref={el}></span>;
+};
+
+const YourComponent = () => {
     const features = [
         {
             icon:
@@ -24,9 +46,9 @@ export default () => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                 </svg>,
             title: "Insurance",
-            desc: " Provide or offer access to comprehensive insurance coverage that includes protection for drivers during carpooling"
+            desc: "Provide or offer access to comprehensive insurance coverage that includes protection for drivers during carpooling"
         }
-    ]
+    ];
 
     return (
         <section className="py-14">
@@ -35,30 +57,30 @@ export default () => {
                     <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
                         Why publish ride in Bookr?
                     </h3>
-                    <p className="mt-3">
-                      Enjoy cost savings, reduced vehicle wear and tear, and the opportunity to earn extra income by offering rides.
-                    </p>
+                    <div className="mt-3">
+                        <TypedText text="Enjoy cost savings, reduced vehicle wear and tear, and the opportunity to earn extra income by offering rides." />
+                    </div>
                 </div>
                 <div className="mt-12">
                     <ul className="grid gap-y-8 gap-x-12 sm:grid-cols-2 lg:grid-cols-3">
-                        {
-                            features.map((item, idx) => (
-                                <li key={idx} className="space-y-3">
-                                    <div className="w-12 h-12 mx-auto bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center">
-                                        {item.icon}
-                                    </div>
-                                    <h4 className="text-lg text-gray-800 font-semibold">
-                                        {item.title}
-                                    </h4>
-                                    <p>
-                                        {item.desc}
-                                    </p>
-                                </li>
-                            ))
-                        }
+                        {features.map((item, idx) => (
+                            <li key={idx} className="space-y-3">
+                                <div className="w-12 h-12 mx-auto bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center">
+                                    {item.icon}
+                                </div>
+                                <h4 className="text-lg text-gray-800 font-semibold">
+                                    {item.title}
+                                </h4>
+                                <div className="typed-text">
+                                    <TypedText text={item.desc} />
+                                </div>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>
         </section>
-    )
-}
+    );
+};
+
+export default YourComponent;
