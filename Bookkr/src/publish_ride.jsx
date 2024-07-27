@@ -22,7 +22,7 @@ const PublishRideCard = () => {
             fontFamily: 'Product Sans'
           }}
         >
-          Become a BlaBlaCar driver, share your ride, and save on travel costs
+          Become a Bookr driver, share your ride, and save on travel costs
         </h1>
         <div className="flex justify-center items-start pt-20 px-10" style={{marginTop: '1px'}}>
           <div className="bg-white rounded-lg shadow-2xl p-6" style={{ maxWidth: '400px', marginTop: '100px', marginBottom: '50px' }}>
