@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Home from './Home'
 import Publish from './publish_ride'
+import Profile from './Profile'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/publish_ride' element={<Publish/>}/>
+      <Route path='/profile' element={<Profile/>}/>
     </Routes>
     </BrowserRouter>
   )
