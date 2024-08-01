@@ -1,26 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './CardComponent.css';
-import Header from './components/Header'; 
+import Header from './components/Header';
 import Footer from './components/Footer';
 
 const Profile = () => {
+  const [profileImage, setProfileImage] = useState('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png');
+
+  const handleImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => setProfileImage(e.target.result);
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow flex items-center justify-center bg-gradient-to-b from-blue-50 to-blue-100 py-16 min-h-screen"> {/* Background color matches the page */}
+      <main className="flex-grow flex items-center justify-center bg-gradient-to-b from-blue-50 to-blue-100 py-16 min-h-screen">
         <div className="w-full max-w-sm bg-white shadow-2xl rounded-lg overflow-hidden text-gray-900">
           {/* Card Header */}
           <div className="h-32 bg-blue-50 flex items-center justify-center">
-            {/* Minimal color background */}
             <div className="w-full h-full bg-blue-200 rounded-t-lg"></div>
           </div>
           {/* Profile Image */}
-          <div className="mx-auto w-28 h-28 relative -mt-14 border-4 border-white rounded-full overflow-hidden shadow-lg">
-          <img
-              className="object-cover object-center h-full w-full"
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-              alt="User"
-            />          </div>
+          <div className="relative flex justify-center -mt-16">
+            <div className="relative w-28 h-28 border-4 border-white rounded-full overflow-hidden shadow-lg">
+              <img
+                className="object-cover object-center h-full w-full"
+                src={profileImage}
+                alt="User"
+              />
+            </div>
+            <div className="absolute bottom-0 right-0 bg-blue-600 text-white rounded-full p-1 cursor-pointer hover:bg-blue-500">
+              <label htmlFor="fileInput" className="cursor-pointer">
+                <svg className="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M19.4 3.6L16 0H8L4.6 3.6H1v18h22V3.6h-3.6zM12 4c.828 0 1.5.672 1.5 1.5S12.828 7 12 7s-1.5-.672-1.5-1.5S11.172 4 12 4zm0 5c2.206 0 4 1.794 4 4s-1.794 4-4 4-4-1.794-4-4 1.794-4 4-4zM4.5 19l1.062-3H8l1.5 3H4.5z" />
+                </svg>
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleImageChange}
+                />
+              </label>
+            </div>
+          </div>
           <div className="text-center mt-4">
             <h2 className="font-semibold text-xl">John Doe</h2>
             <p className="text-gray-600 text-sm">Driver/Passenger</p>
@@ -52,7 +78,7 @@ const Profile = () => {
           </div>
         </div>
       </main>
-      <Footer className="fixed bottom-0 w-full" /> {/* Fixed position */}
+      <Footer className="fixed bottom-0 w-full" />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: 'Dashboard', href: '/', current: false },
+  { name: 'Dashboard', href: '/Home', current: false },
   { name: 'Publish A Ride', href: '/publish_ride', current: false }
 ]
 
