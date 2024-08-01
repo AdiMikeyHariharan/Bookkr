@@ -11,6 +11,7 @@ import Spinner from './components/Spinner'
 import Writings from './components/Writings'
 import Search from './components/Search'
 
+
 function HomeP() {
   return (
     <>

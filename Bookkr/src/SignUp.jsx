@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './FlipCard.css'; // Ensure you include the corresponding CSS
+import './FlipCard.css'; 
 import Header from './components/Header'
 
 const FlipCard = () => {
@@ -37,7 +37,12 @@ const FlipCard = () => {
               <form className="flip-card__form" action="">
                 <input className="flip-card__input" placeholder="Name" type="text" />
                 <input className="flip-card__input" name="email" placeholder="Email" type="email" />
+                <input className="flip-card__input" name="number" placeholder="Phone No" type="tel" />
+                <input className="flip-card__input" name="gender" placeholder="Gender" type="text"/>
+                <input className="flip-card__input" name="dob" placeholder="dob" type="date"/>
                 <input className="flip-card__input" name="password" placeholder="Password" type="password" />
+                <input className="flip-card__input" name="confirmPassword" placeholder="Confirm Password" type="password"/>
+                
                 <button className="flip-card__btn">Confirm!</button>
               </form>
             </div>
