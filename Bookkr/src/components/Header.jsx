@@ -10,7 +10,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Header() {
+export default function Header(props) {
   return (
     <Disclosure as="nav" className="bg-gray-800 fixed w-full z-50">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -68,7 +68,7 @@ export default function Header() {
                   <span className="sr-only">Open user menu</span>
                   <img
                     alt=""
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png"
                     className="h-8 w-8 rounded-full"
                   />
                 </MenuButton>
@@ -83,13 +83,8 @@ export default function Header() {
                   </a>
                 </MenuItem>
                 <MenuItem>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
-                    Settings
-                  </a>
-                </MenuItem>
-                <MenuItem>
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
-                    Sign out
+                  <a href="/Registration" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                    Login/Sign Up
                   </a>
                 </MenuItem>
               </MenuItems>
