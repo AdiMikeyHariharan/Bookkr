@@ -3,18 +3,18 @@ import React from 'react';
 export default function Jumbo() {
   return (
     <div>
-      <section className="bg-gradient-to-r from-purple-500 to-blue-500 dark:bg-gray-900">
+      <section className="bg-gradient-to-r from-white to-blue-500">
         <div className="py-16 px-4 mx-auto max-w-screen-xl text-center lg:py-24">
-          <h1 className="mb-6 text-5xl font-extrabold tracking-tight leading-none text-white md:text-6xl lg:text-7xl dark:text-white">
+          <h1 className="mb-6 text-5xl font-extrabold tracking-tight leading-none text-white md:text-6xl lg:text-7xl">
             We invest in the world’s potential
           </h1>
-          <p className="mb-10 text-xl font-normal text-gray-200 lg:text-2xl sm:px-16 lg:px-48 dark:text-gray-400">
+          <p className="mb-10 text-xl font-normal text-gray-200 lg:text-2xl sm:px-16 lg:px-48">
             Here at Flowbite, we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.
           </p>
           <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
             <a
               href="#"
-              className="inline-flex justify-center items-center py-3 px-5 text-lg font-medium text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900 transition-all duration-200 transform hover:scale-105"
+              className="inline-flex justify-center items-center py-3 px-5 text-lg font-medium text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 transition-all duration-200 transform hover:scale-105"
             >
               Get started
               <svg

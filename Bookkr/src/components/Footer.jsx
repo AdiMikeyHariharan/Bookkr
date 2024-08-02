@@ -3,7 +3,7 @@ import React from 'react';
 export default function Footer() {
   return (
     <div>
-      <footer className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 dark:bg-gray-900">
+      <footer className="bg-gradient-to-r from-white to-blue-500">
         <div className="mx-auto w-full max-w-screen-xl">
           <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
             <div>

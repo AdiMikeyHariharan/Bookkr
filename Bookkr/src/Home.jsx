@@ -16,7 +16,7 @@ function HomeP() {
     <>
       <Header  />
       <Carousel />
-      <div className="bg-gradient-to-r from-purple-500 to-blue-500 py-8">
+      <div className="bg-gradient-to-r from-white to-blue-500 py-8">
         <div className="container mx-auto">
           <Search />
           <Writings />
