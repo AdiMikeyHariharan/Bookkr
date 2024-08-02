@@ -34,45 +34,40 @@ const PublishRideCard = () => {
         <h1 className="text-4xl font-bold text-gray-800 mb-12">
           <span ref={typedElement} />
         </h1>
-        <div className="flex flex-col items-center lg:flex-row lg:items-start space-y-10 lg:space-y-0 lg:space-x-10">
-          <div className="wrapper flex flex-col items-center">
-            <div className="flip-card__inner">
-              <div className="flip-card__front">
-                <h2 className="title">Publish a Ride</h2>
-                <form className="flip-card__form">
-                  <input
-                    type="text"
-                    value={leavingFrom}
-                    onChange={(e) => setLeavingFrom(e.target.value)}
-                    placeholder="Leaving from..."
-                    className="flip-card__input"
-                  />
-                  <input
-                    type="text"
-                    value={goingTo}
-                    onChange={(e) => setGoingTo(e.target.value)}
-                    placeholder="Going to..."
-                    className="flip-card__input"
-                  />
-                  <div className="flex items-center">
-                    <FaUsers className="text-gray-500 mr-2" />
-                    <input
-                      type="number"
-                      value={passengers}
-                      onChange={(e) => setPassengers(parseInt(e.target.value, 10))}
-                      min={1}
-                      placeholder="1 passenger"
-                      className="flip-card__input w-20"
-                    />
-                  </div>
-                </form>
-                <button className="flip-card__btn transition-all duration-200 bg-blue-900 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none w-full max-w-md">
-                  Publish a ride
-                </button>
+        <div className="wrapper flex flex-col items-center justify-center">
+          <div className="flip-card__front">
+            <h2 className="title">Publish a Ride</h2>
+            <form className="flip-card__form">
+              <input
+                type="text"
+                value={leavingFrom}
+                onChange={(e) => setLeavingFrom(e.target.value)}
+                placeholder="Leaving from..."
+                className="flip-card__input"
+              />
+              <input
+                type="text"
+                value={goingTo}
+                onChange={(e) => setGoingTo(e.target.value)}
+                placeholder="Going to..."
+                className="flip-card__input"
+              />
+              <div className="flex items-center">
+                <FaUsers className="text-gray-500 mr-2" />
+                <input
+                  type="number"
+                  value={passengers}
+                  onChange={(e) => setPassengers(parseInt(e.target.value, 10))}
+                  min={1}
+                  placeholder="1 passenger"
+                  className="flip-card__input w-20"
+                />
               </div>
-            </div>
+            </form>
+            <button className="flip-card__btn transition-all duration-200 bg-blue-900 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none w-full max-w-md">
+              Publish a ride
+            </button>
           </div>
-          {/* Removed image */}
         </div>
         <Stats />
         <Feature />
