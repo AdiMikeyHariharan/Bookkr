@@ -68,7 +68,8 @@ export default function Header(props) {
                   <span className="sr-only">Open user menu</span>
                   <img
                     alt=""
-                    src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png"
+                    
+                    src={props.url}
                     className="h-8 w-8 rounded-full"
                   />
                 </MenuButton>

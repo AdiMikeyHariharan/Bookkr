@@ -6,6 +6,7 @@ import SignUp from './SignUp'
 import Home from './Home'
 import Publish from './publish_ride'
 import Profile from './Profile'
+import Rides from './Rides';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './pages/Login'
 
@@ -17,6 +18,7 @@ function App() {
       <Route path='/Home' element={<Home/>}/>
       <Route path='/publish_ride' element={<Publish/>}/>
       <Route path='/profile' element={<Profile/>}/>
+      <Route path="/rides" element={<Rides />} />
       <Route path='/Registration' element={<Login/>}/>
     </Routes>
     </BrowserRouter>
