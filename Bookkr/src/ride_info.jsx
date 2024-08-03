@@ -1,18 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Autocomplete } from '@react-google-maps/api';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
 const RideInfo = () => {
   const [leavingFrom, setLeavingFrom] = useState('');
   const [goingTo, setGoingTo] = useState('');
-  const [passengers, setPassengers] = useState(1); // Default to 1 passenger
+  const [passengers, setPassengers] = useState(1);
   const [startDate, setStartDate] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [pricePerSeat, setPricePerSeat] = useState('');
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const [autocompleteFrom, setAutocompleteFrom] = useState(null);
+  const [autocompleteTo, setAutocompleteTo] = useState(null);
+
+  useEffect(() => {
+    // Set today's date as the minimum allowed date
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('startDate').setAttribute('min', today);
+  }, []);
+
+  const onLoadFrom = (autoC) => setAutocompleteFrom(autoC);
+  const onLoadTo = (autoC) => setAutocompleteTo(autoC);
+
+  const handlePlaceChangedFrom = () => {
+    if (autocompleteFrom) {
+      const place = autocompleteFrom.getPlace();
+      if (place.formatted_address) {
+        setLeavingFrom(place.formatted_address);
+      }
+    }
+  };
+
+  const handlePlaceChangedTo = () => {
+    if (autocompleteTo) {
+      const place = autocompleteTo.getPlace();
+      if (place.formatted_address) {
+        setGoingTo(place.formatted_address);
+      }
+    }
+  };
 
   const validateForm = () => {
     const newErrors = {};
@@ -30,7 +60,6 @@ const RideInfo = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Perform the action to publish the ride with all details
       console.log({
         leavingFrom,
         goingTo,
@@ -40,7 +69,6 @@ const RideInfo = () => {
         endTime,
         pricePerSeat
       });
-      // Navigate to the next page or show a success message
       alert('Ride published successfully!');
       navigate('/some-success-page'); // Adjust this to your actual success page route
     } else {
@@ -48,9 +76,16 @@ const RideInfo = () => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    // Prevent form submission when pressing Enter key inside autocomplete input
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-r from-white to-blue-500">
-      <Header />
+      
       <main className="flex-grow flex flex-col items-center justify-center py-16">
         <h1 className="text-4xl font-bold text-gray-800 mb-12" style={{ marginTop: '2rem' }}>
           Ride Information
@@ -58,44 +93,53 @@ const RideInfo = () => {
         <div className="wrapper3 flex flex-col items-center justify-center">
           <div className="flip-card__front">
             <form className="flip-card__form" onSubmit={handleSubmit}>
-              <input
-                type="text"
-                value={leavingFrom}
-                onChange={(e) => setLeavingFrom(e.target.value)}
-                placeholder="Starting point"
-                className="flip-card__input"
-              />
+              <Autocomplete onLoad={onLoadFrom} onPlaceChanged={handlePlaceChangedFrom}>
+                <input
+                  type="text"
+                  value={leavingFrom}
+                  onChange={(e) => setLeavingFrom(e.target.value)}
+                  placeholder="Departure location"
+                  className="flip-card__input"
+                  onKeyDown={handleKeyDown}
+                />
+              </Autocomplete>
               {errors.leavingFrom && <p className="text-red-500">{errors.leavingFrom}</p>}
-              <input
-                type="text"
-                value={goingTo}
-                onChange={(e) => setGoingTo(e.target.value)}
-                placeholder="Dropping point"
-                className="flip-card__input"
-              />
+              <Autocomplete onLoad={onLoadTo} onPlaceChanged={handlePlaceChangedTo}>
+                <input
+                  type="text"
+                  value={goingTo}
+                  onChange={(e) => setGoingTo(e.target.value)}
+                  placeholder="Destination location"
+                  className="flip-card__input"
+                  onKeyDown={handleKeyDown}
+                />
+              </Autocomplete>
               {errors.goingTo && <p className="text-red-500">{errors.goingTo}</p>}
               <input
+                id="startDate"
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                placeholder="Starting date"
+                placeholder="Start date"
                 className="flip-card__input"
               />
               {errors.startDate && <p className="text-red-500">{errors.startDate}</p>}
               <input
-                type="time"
+                type="text" // Changed to text input
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
-                placeholder="Start time"
+                placeholder="Start time (HH:MM)"
                 className="flip-card__input"
+                onKeyDown={handleKeyDown}
               />
               {errors.startTime && <p className="text-red-500">{errors.startTime}</p>}
               <input
-                type="time"
+                type="text" // Changed to text input
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
-                placeholder="End time"
+                placeholder="End time (HH:MM)"
                 className="flip-card__input"
+                onKeyDown={handleKeyDown}
               />
               {errors.endTime && <p className="text-red-500">{errors.endTime}</p>}
               <input
