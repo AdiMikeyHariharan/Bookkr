@@ -17,7 +17,7 @@ const Profile = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header url={profileImage}/>
-      <main className="flex-grow flex items-center justify-center bg-gradient-to-b from-blue-50 to-blue-100 py-16 min-h-screen">
+      <main className="flex-grow flex items-center justify-center bg-gradient-to-r from-white to-blue-500 py-16 min-h-screen">
         <div className="w-full max-w-sm bg-white shadow-2xl rounded-lg overflow-hidden text-gray-900">
           {/* Card Header */}
           <div className="h-32 bg-blue-50 flex items-center justify-center">
