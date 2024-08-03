@@ -14,7 +14,6 @@ import Search from './components/Search';
 function HomeP() {
   return (
     <>
-      <Header  />
       <Carousel />
       <div className="bg-gradient-to-r from-white to-blue-500 py-8">
         <div className="container mx-auto">
