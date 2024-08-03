@@ -6,7 +6,7 @@ export default function JumboLTR() {
       <section className="bg-gradient-to-r from-white to-blue-500">
         <div className="py-16 px-4 mx-auto max-w-screen-xl text-center lg:py-24">
           <h1 className="mb-6 text-5xl font-extrabold tracking-tight leading-none text-white md:text-6xl lg:text-7xl">
-            We invest in the world’s potential
+            We connect your journey's possibilities
           </h1>
           <p className="mb-10 text-xl font-normal text-gray-100 lg:text-2xl sm:px-16 lg:px-48">
             Here at Flowbite, we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.
