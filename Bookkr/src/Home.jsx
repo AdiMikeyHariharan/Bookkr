@@ -12,6 +12,7 @@ import Writings from './components/Writings';
 import Search from './components/Search';
 
 function HomeP() {
+  
   return (
     <>
       <Carousel />

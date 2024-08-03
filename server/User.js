@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema
 
-const userModel = new Schema({
+const userModel = new Schema(
+    {
     username:{
         type:String,
         required:true,
@@ -19,8 +20,12 @@ const userModel = new Schema({
     verified:{
         type:Boolean,
         default:false
+    },
+    image:{
+        type:String,
     }
-})
+    }
+)
 
 const User = mongoose.model("User",userModel)
 export default User;

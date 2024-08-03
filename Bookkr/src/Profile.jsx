@@ -9,8 +9,12 @@ const Profile = () => {
   const handleImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
-      reader.onload = (e) => setProfileImage(e.target.result);
       reader.readAsDataURL(event.target.files[0]);
+      reader.onload = () => {
+        console.log(reader.result)
+        setProfileImage(reader.result);
+      }
+      console.log(reader.result)
     }
   };
 

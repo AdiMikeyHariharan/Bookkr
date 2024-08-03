@@ -1,10 +1,12 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react'; 
+import { useNavigate } from 'react-router-dom';
+import {useForm} from 'react-hook-form';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
 
 
 export default function Login() {
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -12,9 +14,31 @@ export default function Login() {
     watch,
   } = useForm();
 
-  console.log(watch("username"));
-  console.log(watch("emailId"));
 
+  const username = watch("username");
+  const [usernameAvailable, setUsernameAvailable] = useState(true); // Added state to track username availability
+
+  useEffect(() => {
+    const checkUser = async (username) => {
+      if (!username) {
+        setUsernameAvailable(true); // Reset if username is empty
+        return;
+      }
+      
+      try {
+        const response = await axios.get(`http://localhost:8080/checkuser/${username}`);
+        setUsernameAvailable(response.data.available); 
+      } catch (error) {
+        console.error('Error checking username:', error);
+      }
+    };
+
+    const debounceTimer = setTimeout(() => {
+      checkUser(username);
+    }, 300); // Delay for 300ms
+
+    return () => clearTimeout(debounceTimer); // Cleanup the timer
+  }, [username]);
  
   const onSubmit_ = async (data) => {
     bcrypt.hash(data.password,10)
@@ -27,8 +51,9 @@ export default function Login() {
           'Content-Type': 'application/json',
         },
       });
-  
+      
       console.log(response.data); // Log the response data
+      navigate('/Home')
       // Handle successful response (e.g., redirect, show a message, etc.)
     } catch (error) {
       if (error.response) {
@@ -66,6 +91,7 @@ export default function Login() {
               />
               <label htmlFor="Username" className={`absolute left-0 cursor-text peer-focus:text-xs transition-all peer-focus:text-blue-600 duration-500 ${watch("username")?.length > 0 ? "-top-4 text-xs" : "peer-focus:-top-4"}`}>Username</label>
             {errors.username && <p className="text-red-500">{errors.username.message}</p>}
+            {usernameAvailable ? <p className="text-green-500">Username Available</p> : <p className='text-red-500'>Username Is Taken</p>}
           </div>
           <div className="mb-4 relative">
             <input id="Email" className = "w-full border-b focus:outline-none focus:border-blue-600 focus:border-b-2 transition-colors peer duration-500" autoComplete="off"
