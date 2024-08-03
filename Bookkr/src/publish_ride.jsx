@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Typed from 'typed.js';
 import { FaUsers } from 'react-icons/fa';
 import Header from './components/Header';
@@ -10,6 +11,8 @@ const PublishRideCard = () => {
   const [leavingFrom, setLeavingFrom] = useState('');
   const [goingTo, setGoingTo] = useState('');
   const [passengers, setPassengers] = useState(1); // Default to 1 passenger
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
   const typedElement = useRef(null);
 
   useEffect(() => {
@@ -27,6 +30,25 @@ const PublishRideCard = () => {
     };
   }, []);
 
+  const validateForm = () => {
+    const newErrors = {};
+    if (!leavingFrom) newErrors.leavingFrom = 'Please enter a departure location';
+    if (!goingTo) newErrors.goingTo = 'Please enter a destination';
+    if (passengers < 1 || passengers > 6) newErrors.passengers = 'Passengers must be between 1 and 6';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      // Navigate to the ride info page upon successful validation
+      navigate('/ride_info', { state: { leavingFrom, goingTo, passengers } });
+    } else {
+      alert('Please fill in all fields correctly before publishing.');
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-r from-white to-blue-500">
       <Header />
@@ -34,10 +56,10 @@ const PublishRideCard = () => {
         <h1 className="text-4xl font-bold text-gray-800 mb-12">
           <span ref={typedElement} />
         </h1>
-        <div className="wrapper flex flex-col items-center justify-center">
+        <div className="wrapper2 flex flex-col items-center justify-center">
           <div className="flip-card__front">
             <h2 className="title">Publish a Ride</h2>
-            <form className="flip-card__form">
+            <form className="flip-card__form" onSubmit={handleSubmit}>
               <input
                 type="text"
                 value={leavingFrom}
@@ -45,6 +67,7 @@ const PublishRideCard = () => {
                 placeholder="Leaving from..."
                 className="flip-card__input"
               />
+              {errors.leavingFrom && <p className="text-red-500">{errors.leavingFrom}</p>}
               <input
                 type="text"
                 value={goingTo}
@@ -52,6 +75,7 @@ const PublishRideCard = () => {
                 placeholder="Going to..."
                 className="flip-card__input"
               />
+              {errors.goingTo && <p className="text-red-500">{errors.goingTo}</p>}
               <div className="flex items-center">
                 <FaUsers className="text-gray-500 mr-2" />
                 <input
@@ -59,14 +83,19 @@ const PublishRideCard = () => {
                   value={passengers}
                   onChange={(e) => setPassengers(parseInt(e.target.value, 10))}
                   min={1}
+                  max={6}
                   placeholder="1 passenger"
                   className="flip-card__input w-20"
                 />
               </div>
+              {errors.passengers && <p className="text-red-500">{errors.passengers}</p>}
+              <button
+                type="submit"
+                className="flip-card__btn transition-all duration-200 bg-blue-900 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none w-full max-w-md"
+              >
+                Publish a ride
+              </button>
             </form>
-            <button className="flip-card__btn transition-all duration-200 bg-blue-900 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none w-full max-w-md">
-              Publish a ride
-            </button>
           </div>
         </div>
         <Stats />

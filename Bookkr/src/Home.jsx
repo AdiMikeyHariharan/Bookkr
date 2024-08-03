@@ -23,7 +23,6 @@ function HomeP() {
         </div>
       </div>
       <Jumbo />
-      <JumboLTR />
       <Footer />
     </>
   );

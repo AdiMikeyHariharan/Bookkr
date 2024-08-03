@@ -3,11 +3,15 @@ import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
     const navigate = useNavigate();
+
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split('T')[0];
+
     const [formData, setFormData] = useState({
         goingFrom: '',
         goingTo: '',
         noOfPassengers: 1, // Default to 1 passenger
-        departureDate: ''
+        departureDate: today // Default to today's date
     });
 
     const handleChange = (e) => {
@@ -31,10 +35,8 @@ const Search = () => {
 
         // Check if all fields are filled
         if (goingFrom && goingTo && noOfPassengers && departureDate) {
-            // Redirect to the Rides page
             navigate('/Rides');
         } else {
-            // Optionally, show an error message
             alert("Please fill in all fields before searching.");
         }
     };
@@ -94,7 +96,7 @@ const Search = () => {
                         id="departureDate"
                         value={formData.departureDate}
                         onChange={handleChange}
-                        min={new Date().toISOString().split('T')[0]} // Restrict to current or future dates
+                        min={today} // Restrict to current or future dates
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         required
                     />

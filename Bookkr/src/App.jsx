@@ -9,6 +9,7 @@ import Profile from './Profile'
 import Rides from './Rides';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './pages/Login'
+import RideInfo from './ride_info'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path='/profile' element={<Profile/>}/>
       <Route path="/rides" element={<Rides />} />
       <Route path='/Registration' element={<Login/>}/>
+      <Route path="/ride_info" element={<RideInfo />} />
     </Routes>
     </BrowserRouter>
   )
