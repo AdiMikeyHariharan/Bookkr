@@ -2,19 +2,39 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Typed from 'typed.js';
 import { FaUsers } from 'react-icons/fa';
-import Header from './components/Header';
+import Header from './components/Header'; 
 import Footer from './components/Footer';
 import Stats from './components/Stats';
 import Feature from './components/Feature';
+import { Autocomplete } from '@react-google-maps/api';
+
+import axios from 'axios'
+
 
 const PublishRideCard = () => {
   const [leavingFrom, setLeavingFrom] = useState('');
   const [goingTo, setGoingTo] = useState('');
-  const [passengers, setPassengers] = useState(1); // Default to 1 passenger
+  const [passengers, setPassengers] = useState(1);
   const [errors, setErrors] = useState({});
+  const [profileImage,setprofileImage] = useState(null)
   const navigate = useNavigate();
   const typedElement = useRef(null);
+  const [autocompleteFrom, setAutocompleteFrom] = useState(null);
+  const [autocompleteTo, setAutocompleteTo] = useState(null);
 
+  const getImage = async() =>{
+    try{
+
+      const response = await axios.get("http://localhost:8080/checkuser",{withCredentials:true});
+      const image = response.data.image;
+      const permitted = response.data.permitted;
+      const username = response.data.username;
+      setprofileImage(image)
+    }
+    catch (err){
+      navigate('/Registration')
+    }
+  }
   useEffect(() => {
     const options = {
       strings: ['Become a Bookr driver', 'Share your ride', 'Save on travel costs'],
@@ -24,7 +44,7 @@ const PublishRideCard = () => {
     };
 
     const typed = new Typed(typedElement.current, options);
-
+    getImage();
     return () => {
       typed.destroy();
     };
@@ -39,19 +59,43 @@ const PublishRideCard = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const handlePlaceChangedFrom = () => {
+    if (autocompleteFrom) {
+      const place = autocompleteFrom.getPlace();
+      if (place.formatted_address) {
+        setLeavingFrom(place.formatted_address);
+      }
+    }
+  };
+
+  const handlePlaceChangedTo = () => {
+    if (autocompleteTo) {
+      const place = autocompleteTo.getPlace();
+      if (place.formatted_address) {
+        setGoingTo(place.formatted_address);
+      }
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Navigate to the ride info page upon successful validation
       navigate('/ride_info', { state: { leavingFrom, goingTo, passengers } });
     } else {
       alert('Please fill in all fields correctly before publishing.');
     }
   };
 
+  const handleKeyDown = (e) => {
+    // Prevent form submission when pressing Enter key inside autocomplete input
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-r from-white to-blue-500">
-      <Header />
+      <Header url={profileImage}/>
       <main className="flex-grow flex flex-col items-center justify-center py-16">
         <h1 className="text-4xl font-bold text-gray-800 mb-12">
           <span ref={typedElement} />
@@ -60,21 +104,27 @@ const PublishRideCard = () => {
           <div className="flip-card__front">
             <h2 className="title">Publish a Ride</h2>
             <form className="flip-card__form" onSubmit={handleSubmit}>
-              <input
-                type="text"
-                value={leavingFrom}
-                onChange={(e) => setLeavingFrom(e.target.value)}
-                placeholder="Leaving from..."
-                className="flip-card__input"
-              />
+              <Autocomplete onLoad={setAutocompleteFrom} onPlaceChanged={handlePlaceChangedFrom}>
+                <input
+                  type="text"
+                  value={leavingFrom}
+                  onChange={(e) => setLeavingFrom(e.target.value)}
+                  placeholder="Leaving from..."
+                  className="flip-card__input"
+                  onKeyDown={handleKeyDown}
+                />
+              </Autocomplete>
               {errors.leavingFrom && <p className="text-red-500">{errors.leavingFrom}</p>}
-              <input
-                type="text"
-                value={goingTo}
-                onChange={(e) => setGoingTo(e.target.value)}
-                placeholder="Going to..."
-                className="flip-card__input"
-              />
+              <Autocomplete onLoad={setAutocompleteTo} onPlaceChanged={handlePlaceChangedTo}>
+                <input
+                  type="text"
+                  value={goingTo}
+                  onChange={(e) => setGoingTo(e.target.value)}
+                  placeholder="Going to..."
+                  className="flip-card__input"
+                  onKeyDown={handleKeyDown}
+                />
+              </Autocomplete>
               {errors.goingTo && <p className="text-red-500">{errors.goingTo}</p>}
               <div className="flex items-center">
                 <FaUsers className="text-gray-500 mr-2" />

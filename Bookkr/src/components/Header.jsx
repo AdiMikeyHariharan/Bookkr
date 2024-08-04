@@ -85,7 +85,7 @@ export default function Header(props) {
                 </MenuItem>
                 <MenuItem>
                   <a href="/Registration" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
-                    Login/Sign Up
+                    {props.status}
                   </a>
                 </MenuItem>
               </MenuItems>
