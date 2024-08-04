@@ -1,20 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import './CardComponent.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
-  const [profileImage, setProfileImage] = useState('https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png');
-
+  const [profileImage, setProfileImage] = useState(null)
+  const [username,setUsername] = useState(null)
+  const [isAuth,setAuth] = useState(false)
+  const navigate = useNavigate();
+  const getImage = async() =>{
+    try{
+      const response = await axios.get("http://localhost:8080/checkuser",{withCredentials:true});
+      const image = response.data.image;
+      const permitted = response.data.permitted;
+      const username = response.data.username;
+      setProfileImage(image)
+      setUsername(username)
+      setAuth(permitted)
+    }
+    catch(err){
+      navigate('/Registration')
+    }
+  }
+  useEffect(() => {
+    getImage();
+  }, [profileImage]);
   const handleImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
-      reader.onload = () => {
-        console.log(reader.result)
+      reader.onload = async () => {
         setProfileImage(reader.result);
+        const image = reader.result
+        try{
+          const response = await axios.post("http://localhost:8080/upload-image",{Newimage:image},{
+            headers:{
+              'Content-Type': 'application/json',
+            },
+            withCredentials : true
+          });
+        }
+        catch (err){
+          console.log(err)
+        }
       }
-      console.log(reader.result)
     }
   };
 
@@ -52,7 +83,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="text-center mt-4">
-            <h2 className="font-semibold text-xl">John Doe</h2>
+            <h2 className="font-semibold text-xl">{username}</h2>
             <p className="text-gray-600 text-sm">Driver/Passenger</p>
           </div>
           <ul className="py-4 mt-4 text-gray-700 flex items-center justify-around border-t border-gray-200">

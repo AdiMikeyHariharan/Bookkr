@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from './Header';
 
-export default function Carousel() {
+export default function Carousel(props) {
   return (
     <div>
       {/* Wrapper for the Header */}
       <div className="pb-4">
-        <Header />
+        <Header url={props.url} status={props.status}/>
       </div>
       
       {/* Wrapper for the Carousel with top margin */}

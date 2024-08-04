@@ -1,13 +1,17 @@
 import jsonwebtoken from 'jsonwebtoken'
 
-exports.cookieAuth =(req,res,next) =>{
+const cookieAuth =(req,res,next) =>{
     const token = req.cookies.token
+    if(!token){
+        return res.status(401).json({permitted:false,message:'Unauthorized'})
+    }
     try{
         const user = jsonwebtoken.verify(token,process.env.MY_SECRET);
-        res.status(200).json({permitted:true})
+        next();
     }
     catch (err) {
         res.clearCookie("token")
-        res.status(200).json({permitted:false})
+        return res.status(200).json({permitted:false,message : "Error Occured!!!"})
     }
 }
+export default cookieAuth;
