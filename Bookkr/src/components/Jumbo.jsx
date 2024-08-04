@@ -5,10 +5,11 @@ export default function Jumbo() {
     <div>
       <section className="bg-gradient-to-r from-white to-blue-500">
         <div className="py-16 px-4 mx-auto max-w-screen-xl text-center lg:py-24">
-          <h1 className="mb-6 text-5xl font-extrabold tracking-tight leading-none text-white md:text-6xl lg:text-7xl">
+          <h1 className="mb-6 text-5xl font-extrabold tracking-tight leading-none text-white md:text-6xl lg:text-7xl"
+              style={{ textShadow: '2px 2px 0 black' }}> {/* Added text shadow for border effect */}
             We connect your journey's possibilities
           </h1>
-          <p className="mb-10 text-xl font-normal ext-gray-500 dark:text-gray-400 lg:text-2xl sm:px-16 lg:px-48">
+          <p className="mb-10 text-xl font-normal text-ring-blue-500 lg:text-2xl sm:px-16 lg:px-48">
             At Bookkr, we simplify travel by connecting drivers and riders. Find the perfect match for a smooth and enjoyable journey.
           </p>
           <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
@@ -46,13 +47,13 @@ export default function Jumbo() {
       {/* Additional Content Section */}
       <section id="more-content" className="bg-gradient-to-r from-white to-blue-500 py-16 px-4 lg:px-8">
         <div className="mx-auto max-w-screen-xl text-center">
-          <h2 className="text-4xl font-bold text-white mb-6 md:text-5xl">
+          <h2 className="text-4xl font-bold text-white mb-6 md:text-5xl" style={{ textShadow: '2px 2px 0 black' }}> {/* Added text shadow for border effect */}
             Discover More About Bookkr
           </h2>
-          <p className="text-lg font-normal ext-gray-500 dark:text-gray-400 lg:text-xl sm:px-16 lg:px-48">
+          <p className="text-lg font-normal text-ring-blue-500 lg:text-xl sm:px-16 lg:px-48">
             Bookkr offers a seamless platform for drivers and riders to connect. Our services are designed to make travel convenient, safe, and enjoyable. Whether you're planning a short trip or a long journey, Bookkr has got you covered with reliable options and a user-friendly interface.
           </p>
-          <p className="text-lg font-ext-gray-500 dark:text-gray-400 lg:text-xl sm:px-16 lg:px-48">
+          <p className="text-lg font-normal text-ring-blue-500 lg:text-xl sm:px-16 lg:px-48">
             Join us to explore a new way of traveling where you can share rides, meet new people, and save money. Our platform is equipped with the latest features to ensure your experience is smooth and hassle-free. Get started today and embark on a journey with Bookkr!
           </p>
         </div>

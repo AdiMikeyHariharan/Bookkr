@@ -28,7 +28,7 @@ export default function Header(props) {
             <div className="flex flex-shrink-0 items-center">
               <img
                 alt="Your Company"
-                src="./assets/logo.png"
+                src="./src/assets/logo.png"
                 className="h-8 w-auto"
               />
             </div>
